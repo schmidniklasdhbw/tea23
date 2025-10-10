@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
     std::cin.get();
     fmt::println("Der Wert von bar nach dem Funktionsaufruf {}",bar);
     fmt::println("Adresse von bar=={}",fmt::ptr(&bar));
+
     return 0; /* exit gracefully*/
 }
 

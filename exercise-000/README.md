@@ -26,6 +26,14 @@ git push -u origin solution-000
 ....
 ```
 
+Hilfe zu den git Kommandos erhalten Sie zum Beispiel mit:
+
+```sh
+git add -h
+```
+
+Das liefert Ihnen die Hilfe und Optionen zum Kommando `git add`
+
 ## Programm kompilieren und ausführen
 
 Das Projekt verwendet CMake als Build-System. So kompilieren und starten Sie das Programm:
@@ -195,6 +203,12 @@ fmt::print("Name: {}, Alter: {}, Gehalt: {:.2f}\n", name, age, salary);
 # Python f-string (sehr ähnlich!)
 print(f"Name: {name}, Alter: {age}, Gehalt: {salary:.2f}")
 ```
+
+### Funktionen mit mehreren Argumenten
+
+Typischerweise haben Funktionen in C/C++ eine feste Anzahl an Parametern. Ihnen ist vielleicht aufgefallen, dass bei `printf` und auch dem ``fmt::print` durchaus mit einer Variablen Anzahl an Parametern gearbeitet wird. Dies wird mittels dem Konzept __Variadic functions__ umgesetzt.
+
+Siehe [cppreference.com](https://en.cppreference.com/w/c/variadic.html).
 
 ### Praktisches Beispiel für diese Übung
 
