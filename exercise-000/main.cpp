@@ -5,6 +5,7 @@
 
 #include "config.h"
 
+// Forward declaration of the functions
 void changeValueByParameter(int value);
 void changeValueByPointer(int* ptr);
 
@@ -87,7 +88,6 @@ int main(int argc, char **argv) {
     delete d;                         // Speicher wieder freigeben
     
     fmt::println("------------------- Teil 3: Funktionen mit Zeigern -------------------");
-    
     std::cin.get();
     
     
@@ -106,14 +106,20 @@ int main(int argc, char **argv) {
     return 0; /* exit gracefully*/
 }
 
+// Die Implementierung der Funktion
 void changeValueByParameter(int value) {
+    // Der Wert von value ändert sich nur innerhalb der Funktion
+    // Der scope von value ist auf die Funktion `changeValueByParameter` beschränkt
     value = 4711;
     fmt::println("Der wert von value in der Funktion (changeValueByParameter): {} ",value);
-
 }
+
+// Die Implementierung der Funktion
 void changeValueByPointer(int* ptr) {
+    // Da es sich bei ptr um einen Zeiger handelt wird der Wert auf den der Zeiger zeigt geändert.
+    // Damit ändern sie eine Variable ausserhalb der Funktion.
     *ptr = 4711;
-    fmt::println("Der wert von *ptr in der Funktion (changeValueByPointer): {} ",*ptr);
+    fmt::println("Der wert von *ptr in der Funktion (changeValueByPointer): {} ", *ptr);
     fmt::println("Die Adresse von ptr in der Funktion (changeValueByPointer): {} ",fmt::ptr(ptr));
 }
 
