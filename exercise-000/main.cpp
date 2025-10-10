@@ -12,11 +12,8 @@ int main(int argc, char **argv) {
      */
     fmt::print("Hello, {} in version {} !\n", tea::PROJECT_NAME, tea::PROJECT_VER);
 
-    /* INSERT YOUR CODE HERE */
-
-    for (int i = 0; i< argc; i++)
-    {
-        fmt::println("argc: {}, argument {}", i, argv[i]);
+    for (int i = 0; i< argc; i++) {
+        fmt::println("argc: {}, argument {} (Adresse: {})", i, argv[i], fmt::ptr(argv[i]));
     }
 
     return 0; /* exit gracefully*/
