@@ -104,7 +104,12 @@
         "complex": "cpp",
         "armadillo": "cpp",
         "shared_mutex": "cpp",
-        "*.in": "cpp"
+        "*.in": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp"
     },
     "cSpell.language": "en,en-GB,de,de-DE",
     "cSpell.words": [
