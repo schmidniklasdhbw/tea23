@@ -1,5 +1,15 @@
 # Übungsaufgabe: Zeiger in C++ mit `fmt`
 
+Datum 10.10.2025
+
+Unterrichtsblöcke:
+
+- 08:00 - 9:30
+- 09:45 - 11:15
+- 11:30 - 12:15
+- 12:45 - 14:15
+- 14:30 - 15:15
+
 ## Notwendige git Kommandos
 
 ```sh
