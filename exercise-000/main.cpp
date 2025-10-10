@@ -10,9 +10,14 @@ int main(int argc, char **argv) {
      * it is much more convenient than std::cout and printf
      * More info at https://fmt.dev/latest/api.html
      */
-    fmt::print("Hello, {}!\n", tea::PROJECT_NAME);
+    fmt::print("Hello, {} in version {} !\n", tea::PROJECT_NAME, tea::PROJECT_VER);
 
     /* INSERT YOUR CODE HERE */
+
+    for (int i = 0; i< argc; i++)
+    {
+        fmt::println("argc: {}, argument {}", i, argv[i]);
+    }
 
     return 0; /* exit gracefully*/
 }

@@ -103,7 +103,8 @@
         "*.ipp": "cpp",
         "complex": "cpp",
         "armadillo": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "*.in": "cpp"
     },
     "cSpell.language": "en,en-GB,de,de-DE",
     "cSpell.words": [
