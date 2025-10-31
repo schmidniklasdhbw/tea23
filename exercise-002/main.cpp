@@ -2,17 +2,27 @@
 #include <cstdlib>
 #include <cstring>
 
+#include <fmt/format.h>
+
+#include "graveyard.h"
+
+int undead = 7;
+
+extern int g2undead;
+
+void graveyard2();
+void curse();
+
 int main() {
-    char *ghost = (char*)malloc(8);
-    strcpy(ghost, "evil");
-    fmt::println("The value of ghost: {}", ghost);
-    free(ghost);
-    // use after free
-    fmt::println("{}", ghost);
-    strcpy(ghost, "mad");
-    fmt::println("{}", ghost);
-    char* trap = (char*)malloc(8);
-    strcpy(trap, "caught");
-    fmt::println("trap: {}", trap);
-    fmt::println("ghost: {}", ghost);
+    fmt::println("🪦 Globale Variable sagt: {}", undead);
+    awaken();
+    persistent();
+    persistent();
+    graveyard();
+    graveyard2();
+    graveyard();
+    curse();
+    fmt::println("🪦 Globale Variable nach Aufruf: {}", undead);
+    //fmt::println("🪦 Globale Variable nach Aufruf: {}", g2undead);
+
 }
