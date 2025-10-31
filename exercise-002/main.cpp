@@ -1,83 +1,43 @@
-#include <fmt/chrono.h>
 #include <fmt/format.h>
+#include <cstdlib>
+#include <cstring>
 
-/* .bss Segment */
-int foo;
-int foo2 = 0;
+#define SOULS 100
 
-/* .data Segment */
-int data = 45;
-int data2 = 43;
-
-/* .rodata Segment */
-const int rodata = 45;
-const int rodata2 = 43;
-
-
-
-void doSomething(int value)
-{
-    value = value + 1;
-    fmt::print("doSomething, value {}\n", value);
+char* cursed() {
+    char *soul = (char*)malloc(8);
+    strcpy(soul, "boo!");
+    // why is this not working?
+    //soul = "test";
+    // but this?
+    //const char* soul2 = "whooo!"; 
+    fmt::println("{} address of soul: {}", soul, fmt::ptr(soul));
+    //fmt::println("{} address of soul2: {}", soul2, fmt::ptr(soul2));
+    // common pitfall what happens here?
+    // fmt::println("{} address of soul: {}", soul, fmt::ptr(&soul));
+    return soul;
 }
 
-void doSomethingPtr(int* ptr)
-{
-    *ptr = *ptr + 1;
-    fmt::print("doSomethingPtr, value {}\n", *ptr);
+void exorcism(char* victim) {
+    if(NULL != victim) {
+        fmt::println("Attenrobendum eos, ad constringendum, ad ligandum eos, pariter et solvendum, et ad congregandum eos coram me, {}", fmt::ptr(victim));
+        free((void*)victim);
+    }
 }
 
-int* doReturnAPtr()
-{
-    int value = 4711;
-    fmt::print("doReturnAPtr, value {}\n", value);
-    return &value;
-}
-
-void doSomethingStatic()
-{
-    static int value = 56;
-    value = value + 1;
-    fmt::print("doSomethingStatic, value {}\n", value);
-}
-auto main(int argc, char** argv) -> int
-{
-    /**
-     * The {fmt} lib is a cross platform library for printing and formatting text
-     * it is much more convenient than std::cout and printf
-     * More info at https://fmt.dev/latest/api.html
-     */
-    fmt::print("Hello, {}!\n", argv[0]);
-
-    doSomething(42);
-    int bar = 42;
-    doSomething(bar);
-    fmt::print("The value of bar is: {}\n", bar);
-
-    doSomethingPtr(&bar);
-    fmt::print("The value of bar after doSomethingPtr is: {}\n", bar);
-
-    int* returnedPtr = doReturnAPtr();
-    fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
-    doSomething(42);
-    fmt::print("The value of returnedPtr content  after doReturnAPtr is: {}\n", *returnedPtr);
-
-    doSomethingStatic();
-    doSomethingStatic();
-    doSomethingStatic();
-    doSomethingStatic();
-
-    fmt::print("Value of foo {} address of foo {}\n", foo, fmt::ptr(&foo));
-    fmt::print("Value of foo2 {} address of foo2 {}\n", foo2, fmt::ptr(&foo2));
-    fmt::print("Value of data {} address of data {}\n", data, fmt::ptr(&data));
-    fmt::print("Value of data2 {} address of data2 {}\n", data2, fmt::ptr(&data2));
-    fmt::print("Value of rodata {} address of rodata {}\n", rodata, fmt::ptr(&rodata));
-    fmt::print("Value of rodata2 {} address of rodata2 {}\n", rodata2, fmt::ptr(&rodata2));
-
-    int var;
-    static int var2;
-    fmt::print("Value of var {} address of var {}\n", var, fmt::ptr(&var));
-    fmt::print("Value of var2 {} address of var2 {}\n", var2, fmt::ptr(&var2));
-
-    return 0; /* exit gracefully*/
+int main() {
+  
+    for(int i=0; i < SOULS; i++) {
+        exorcism(cursed());
+        
+    }
+    const unsigned int max_cursed = 100;
+    char* cursed_souls[max_cursed];
+    for(int i = 0; i < max_cursed; i++) {
+        cursed_souls[i] = cursed();
+    }
+    for(int i = 0; i < max_cursed; i++) {
+        exorcism(cursed_souls[i]);
+        cursed_souls[i] = NULL;
+    }
 }
