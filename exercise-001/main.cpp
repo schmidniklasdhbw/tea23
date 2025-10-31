@@ -3,16 +3,41 @@
 
 #include "config.h"
 
-int main(int argc, char **argv) {
+#include <fmt/format.h>
+#include <cstdlib>
+#include <cstring>
 
-    /**
-     * The {fmt} lib is a cross platform library for printing and formatting text
-     * it is much more convenient than std::cout and printf
-     * More info at https://fmt.dev/latest/api.html
-     */
-    fmt::print("Hello, {}!\n", tea::PROJECT_NAME);
+// #include <fmt/format.h>
+// #include <cstdlib>
+// #include <cstring>
 
-    /* INSERT YOUR CODE HERE */
+// #define SOULS 100
 
-    return 0; /* exit gracefully*/
+// void cursed() {
+//     char *soul = (char*)malloc(8);
+//     strcpy(soul, "boo!");
+//     free(soul);
+//     fmt::println("{} adresse von soul {}", soul, fmt::ptr(soul));
+   
+// }
+
+// int main() {
+//     for(int i=0; i < SOULS; i++) {
+//         cursed();
+        
+//     }
+// }
+int main() {
+    char *ghost = (char*)malloc(8);
+    char *pumpkin = (char*)malloc(8);
+    strcpy(ghost, "evil");
+    free(ghost);
+    fmt::println("{} Adresse von ghost {}", ghost, fmt::ptr(ghost));
+
+    
+    strcpy(pumpkin, "bad");
+    free(pumpkin);
+    fmt::println("{} Adresse von Pumpkin {}", pumpkin, fmt::ptr(pumpkin));
+
+
 }
