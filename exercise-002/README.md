@@ -42,7 +42,7 @@ upstream        https://github.com/graugans/tea23.git (fetch)
 upstream        https://github.com/graugans/tea23.git (push)
 
 git fetch --all
-git switch -c solution-002 upstream/excercise-002 
+git switch -c solution-002 upstream/main
 git push -u origin solution-002 
 ```
 
