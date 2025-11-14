@@ -1,8 +1,6 @@
 #include <fmt/chrono.h>
 #include <fmt/format.h>
 
-
-
 /**
  * The states
  */
@@ -29,7 +27,10 @@ typedef enum {
 /* Helper function to print the Events in a human readable form */
 const char* makeEventHumanReadable(Event_t e);
 
-/* Declaration of the function pointer */
+/*
+ Declaration of the function pointer
+ https://en.cppreference.com/w/c/language/pointer.html
+*/
 typedef int (*stateHandler_t)(Event_t e);
 
 /* A Struct to keep the follow up state and the action to perform */
