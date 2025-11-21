@@ -66,7 +66,5 @@ int main()
     state = handleEvent(state, Taster_EndlageOben);
      printf("Neuer Zustand: %d\n", state);
 
-  
-
     return 0; 
 }
