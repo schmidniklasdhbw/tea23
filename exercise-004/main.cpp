@@ -4,6 +4,12 @@
 #include "CLI/CLI.hpp"
 #include "config.h"
 
+#include "image.h"
+#include <opencv2/core.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
+
+
 auto main(int argc, char **argv) -> int
 {
     /**
@@ -27,9 +33,30 @@ auto main(int argc, char **argv) -> int
      * More info at https://fmt.dev/latest/api.html
      */
     fmt::print("Hello, {}!\n", app.get_name());
+    fmt::print("Größe des eingebetteten Arrays: {} Bytes\n", sizeof(image));
+    fmt::print("Breite: {} px, Höhe: {} px\n", image_width, image_height);
 
-    /* INSERT YOUR CODE HERE */
 
 
-    return 0; /* exit gracefully*/
+
+    
+    //
+    // Aufgabe 5 – OpenCV, eingebettetes Bild dekodieren
+    //
+
+    cv::Mat img(image_height, image_width, CV_8UC3, (void*)image);
+
+    if(img.empty())
+    {
+        fmt::print("Fehler: Bild konnte nicht dekodiert werden!\n");
+        return 1;
+    }
+
+    // 3. Bildinformationen ausgeben
+    fmt::print("Bild erfolgreich dekodiert.\n");
+    fmt::print("Breite:  {}\n", img.cols);
+    fmt::print("Höhe:    {}\n", img.rows);
+    fmt::print("Kanäle:  {}\n", img.channels());
+
+    return 0;
 }

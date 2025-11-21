@@ -114,8 +114,13 @@
         "graugans",
         "gtest",
         "mathjax",
+        "objdump",
+        "PROGBITS",
+        "readelf",
+        "rodata",
         "Strava",
         "Struct",
-        "Wilking"
+        "Wilking",
+        "ZTSN"
     ],
 }
