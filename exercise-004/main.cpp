@@ -58,5 +58,9 @@ auto main(int argc, char **argv) -> int
     fmt::print("Höhe:    {}\n", img.rows);
     fmt::print("Kanäle:  {}\n", img.channels());
 
+
+    std::string output_filename = fmt::format("{}/{}",".","blub3.jpg");
+    cv::imwrite(output_filename, img);
+
     return 0;
 }
