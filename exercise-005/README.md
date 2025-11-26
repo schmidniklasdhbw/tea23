@@ -1,36 +1,45 @@
-# Übungsaufgabe Nr. 5 – Einfach verkettete Liste & Mini-Vector (Dynamisches Array)
+# Übungsaufgabe Nr. 5 – Einfach verkettete Liste (API-basiert) & Mini-Vector
 
-## Überblick
+Diese Übung basiert vollständig auf folgendem **vorgegebenen Header**, der **unverändert** zu verwenden ist:
 
-In dieser Übung implementieren Sie zwei grundlegende Datenstrukturen:
+```cpp
+#ifndef MY_FANCY_LINKED_LIST_H__
+#define MY_FANCY_LINKED_LIST_H__
 
-1. **Einfach verkettete Liste**
-2. **Mini-Vector** (ein dynamisches Array ähnlich zu `std::vector`)
+typedef struct ListNode {
+    unsigned int data;
+    struct ListNode* pNext;
+} ListNode_t;
 
-Beide Datenstrukturen erhalten eine **ähnliche API**, sodass Sie dieselben Operationen auf unterschiedliche Weise umsetzen.
-Ziel ist es, den Unterschied zwischen **pointerbasierten** und **indexbasierten** Datenstrukturen zu verstehen.
+typedef struct List {
+    ListNode_t* pHead;
+    ListNode_t* pTail;
+    unsigned int size;
+} List_t;
 
-Die fmt-Bibliothek wird für alle Konsolenausgaben verwendet.
+ListNode_t* NewListNode(void);
+void FreeListNode(ListNode_t* elem);
+
+List_t* NewList(void);
+void FreeList(List_t*);
+
+int InsertIntoLinkedList(List_t* list, ListNode_t* elem);
+int InsertIntoLinkedListAfterNode(List_t* list, ListNode_t* node /* the node we insert the element into */, ListNode_t* elem);
+int RemoveFromList(List_t* list, ListNode_t* elem);
+ListNode_t* GetNext(const List_t* list, ListNode_t* elem);
+
+#endif
+```
+
+Alle Funktionen, die Sie implementieren, müssen exakt diese API erfüllen.
 
 ---
 
-## 1. Vorbereitung: Git-Branch anlegen
+## 1. Projektstruktur & Vorbereitung
 
-```sh
-git fetch --all
-git switch -c solution-005 upstream/exercise-005
-git push --set-upstream origin solution-005
+Erstellen oder ergänzen Sie folgenden Ordner:
+
 ```
-
-Alle Änderungen erfolgen im Verzeichnis:
-
-```sh
-exercise-005/
-```
-
-Projektstruktur:
-
-```sh
 exercise-005/
   CMakeLists.txt
   main.cpp
@@ -41,68 +50,97 @@ exercise-005/
   ANSWER.md
 ```
 
----
-
-## 2. Vorgabe: Datenstrukturen für die Liste
-
-```cpp
-typedef struct ListNode {
-    unsigned int data;
-    struct ListNode* pNext;
-} ListNode_t;
-
-typedef struct List {
-    struct ListNode* pHead;
-    struct ListNode* pTail;
-    unsigned int size;
-} List_t;
-```
-
-### Hinweis: Include-Guard in list.hpp
-
-```cpp
-#ifndef LIST_HPP
-#define LIST_HPP
-
-// Inhalt hier…
-
-#endif // LIST_HPP
-```
+`list.hpp` enthält **genau** den vorgegebenen Header oben.
 
 ---
 
-## 3. Aufgaben – Verkettete Liste
+## 2. Aufgabe – Implementieren der verketteten Liste
 
-Sie implementieren folgende API:
+Ihre Aufgabe ist es, alle Funktionen aus dem Header zu implementieren:
 
-```cpp
-void list_init(List_t* list);
-void list_clear(List_t* list);
+### 2.1 Knotenverwaltung
 
-ListNode_t* list_create_node(unsigned int value);
-void list_delete_node(ListNode_t* node);
+#### `NewListNode()`
 
-int list_push_back(List_t* list, unsigned int value);
-int list_insert_after(List_t* list, ListNode_t* pos, unsigned int value);
+- allokiert Speicher für einen neuen Knoten (Heap)
+- setzt `data = 0`
+- setzt `pNext = NULL`
 
-int list_pop_front(List_t* list);
-int list_erase_after(List_t* list, ListNode_t* pos);
+#### `FreeListNode(elem)`
 
-void list_print(const List_t* list);
-```
-
-### Anforderungen
-
-- Verwendung von **malloc/free** *oder* **new/delete** (aber konsistent bleiben!)
-- Ausgabe ausschließlich über **fmt::print**
-- Sonderfall *leere Liste* beachten
-- `list_init()` MUSS benutzt werden → keine Direktmanipulation der Struktur im main()
+- gibt den Speicher wieder frei
+- entfernt das Element **nicht automatisch** aus der Liste
 
 ---
 
-## 4. Aufgaben – Mini-Vector (dynamisches Array)
+### 2.2 Listenverwaltung
 
-Sie implementieren eine API, die formal der Liste ähnelt:
+#### `NewList()`
+
+- erzeugt eine neue Liste dynamisch auf dem Heap
+- setzt `pHead = pTail = NULL`, `size = 0`
+
+#### `FreeList(list)`
+
+- traversiert die Liste
+- ruft `FreeListNode()` für jeden Knoten auf
+- gibt am Ende die Liste selbst frei
+
+---
+
+### 2.3 Einfügen
+
+#### `InsertIntoLinkedList(list, elem)`
+
+- fügt `elem` am **Ende** der Liste ein
+- Sonderfälle:
+  - leere Liste
+  - nicht leere Liste
+- `pTail` aktualisieren
+- `size++`
+
+#### `InsertIntoLinkedListAfterNode(list, node, elem)`
+
+- fügt `elem` **nach** `node` ein
+- wenn `node == pTail`, wird `pTail = elem`
+- `size++`
+
+---
+
+### 2.4 Entfernen
+
+#### `RemoveFromList(list, elem)`
+
+- entfernt ein bestimmtes Element (nicht nur nach Vorgänger)
+- muss den Vorgänger finden
+- Sonderfälle:
+  - Element ist `pHead`
+  - Element ist `pTail`
+- Element freigeben → `FreeListNode(elem)`
+- `size--`
+
+---
+
+### 2.5 Traversieren
+
+#### `GetNext(list, elem)`
+
+- wenn `elem == NULL`, gebe `pHead` zurück
+- sonst gebe `elem->pNext` zurück
+
+Damit lässt sich die Liste wie folgt durchlaufen:
+
+```cpp
+for (ListNode_t* n = GetNext(list, NULL); n != NULL; n = GetNext(list, n)) {
+    fmt::print("{} ", n->data);
+}
+```
+
+---
+
+## 3. Mini-Vector (dynamisches Array)
+
+Implementieren Sie folgende Struktur:
 
 ```cpp
 typedef struct Vector {
@@ -110,85 +148,70 @@ typedef struct Vector {
     size_t size;
     size_t capacity;
 } Vector_t;
+```
 
+API:
+
+```cpp
 void vector_init(Vector_t* vec);
 void vector_clear(Vector_t* vec);
 
 int vector_push_back(Vector_t* vec, unsigned int value);
-int vector_get(const Vector_t* vec, size_t index, unsigned int* out);
+int vector_get(const Vector_t* vec, size_t index, unsigned int* outValue);
 void vector_print(const Vector_t* vec);
 ```
 
-### Anforderungen
+### Anforderungen:
 
-- Startkapazität z. B. `capacity = 4`
-- Beim Einfügen:
-  - Wenn `size >= capacity` → **Kapazität verdoppeln**
-  - Array mit `malloc` oder `new[]` vergrößern und bestehende Werte kopieren
-- Speicher wird am Ende mit `vector_clear()` freigegeben
-
-### Beispiel zum Vergrößern des Arrays
-
-```cpp
-if (vec->size >= vec->capacity) {
-    vec->capacity *= 2;
-    unsigned int* newData = (unsigned int*)malloc(vec->capacity * sizeof(unsigned int));
-    memcpy(newData, vec->data, vec->size * sizeof(unsigned int));
-    free(vec->data);
-    vec->data = newData;
-}
-```
+- Startkapazität = 4
+- automatische Verdopplung der Kapazität bei Bedarf
+- Verwendung von `malloc`/`free` oder `new[]`/`delete[]`
+- Konsistenz mit Listen-Stil
 
 ---
 
-## 5. Testprogramm in main.cpp
+## 4. Aufgabe – Testprogramm (main.cpp)
 
-Ihr Testprogramm soll:
+Ihr Testprogramm muss:
 
-1. Eine Liste und einen Vector anlegen
-2. Beide mit `*_init()` initialisieren
-3. Werte 10, 20, 30, 40, 50 einfügen
-4. Bei der Liste:
-   - Element nach dem zweiten einfügen
-   - Kopf löschen
-5. Beim Vector:
-   - Index 2 auslesen und ausgeben
-6. Nach jeder Operation `list_print()` bzw. `vector_print()` aufrufen
+### 4.1 Liste testen
+
+1. `List_t* list = NewList();`
+2. Fünf neue Knoten erzeugen (`NewListNode()`), Werte manuell setzen, einfügen
+3. Einfügen **nach dem zweiten Knoten**
+4. Ein bestimmtes Element entfernen
+5. Traversieren mit `GetNext`
+6. Liste ausgeben
+
+### 4.2 Vector testen
+
+1. Vector initialisieren
+2. Fünf Werte einfügen
+3. Element an Index 2 ausgeben
+4. Vector ausgeben
 
 ---
 
-## 6. Vergleich in ANSWER.md
+## 5. Aufgabe – Vergleich in `ANSWER.md`
 
-Beantworten Sie:
+Beantworten Sie kurz:
 
 - Vorteile der verketteten Liste
-- Nachteile der Liste
+- Nachteile der verketteten Liste
 - Vorteile des Mini-Vectors
 - Nachteile des Mini-Vectors
-
-### 6.1 Fazit
-
-Wann nimmt man welche Struktur?
-
----
-
-## 7. Optional
-
-- Implementieren Sie `vector_insert_at()` analog zu `list_insert_after`
-- Messen Sie mit `std::chrono` grob die Performance beider Strukturen beim Einfügen von 100.000 Elementen
+- Wann benutzt man welche Struktur?
+- Was passiert wenn man die Elemente sortiert?
+  - Beim Mini-Vector
+  - Bei der Liste
+- Wie würden Sie einen Binären Baum strukturieren?
 
 ---
 
-## 8. Abgabe
+## 6. Optional
 
-Ihre Abgabe enthält:
-
-- Branch `solution-005`
-- Dateien:
-  - `main.cpp`
-  - `list.cpp`, `list.hpp`
-  - `vector.cpp`, `vector.hpp`
-  - `ANSWER.md`
+- `vector_insert_at()` implementieren
+- Zeitmessung mit `std::chrono` (Listen-Insert vs. Vector-Insert)
 
 ---
 
