@@ -63,5 +63,6 @@ auto main(int argc, char **argv) -> int
     cv::imwrite(fmt::format("{}/{}",path, filename), im_rgb);
 
 
+    
     return 0; /* exit gracefully*/
 }
