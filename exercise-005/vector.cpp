@@ -58,6 +58,7 @@ Vector_t* NewVector(void) {
 void vector_init(Vector_t* vec){
     fmt::println("in \"{}\"",__func__);
     if(vec != NULL) {
+        // Warum kann hier ein Speicherloch entstehen?
         vec->data = NULL;
         vec->size = 0;
         vec->capacity = 0;
@@ -128,7 +129,11 @@ void vector_print(const Vector_t* vec) {
     if(vec != NULL) {
         fmt::print("Vector size: {}, capacity: {} [", vec->size, vec->capacity);
         for(unsigned int i = 0; i < vec->size; i++) {
-            fmt::print("{}, ", vec->data[i]);
+            if (i == vec->size - 1) {
+                fmt::print("{}", vec->data[i]);
+            } else {    
+                fmt::print("{}, ", vec->data[i]);
+            }
         }
         fmt::println("]");
     }
