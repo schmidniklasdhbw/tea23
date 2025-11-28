@@ -1,16 +1,14 @@
 #ifndef MY_FANCY_LINKED_LIST_H__
 #define MY_FANCY_LINKED_LIST_H__
 
-typedef struct ListNode {
-    unsigned int data;
-    struct ListNode* pNext;
-} ListNode_t;
-
-typedef struct List {
-    ListNode_t* pHead;
-    ListNode_t* pTail;
-    unsigned int size;
-} List_t;
+/*
+ * We forward declare the opaque list
+ * This is possible due to the fact 
+ * we only work with the pointer to the struct
+ * No direct access to ListNode_t/ListNode attributes possible
+ */
+typedef struct ListNode ListNode_t;
+typedef struct List List_t;
 
 ListNode_t* NewListNode(void);
 void FreeListNode(ListNode_t* elem);

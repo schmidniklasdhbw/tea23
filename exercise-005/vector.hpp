@@ -3,13 +3,15 @@
 
 #include <stdio.h> // for size_t
 
-typedef struct Vector {
-    unsigned int* data;
-    size_t size;
-    size_t capacity;
-} Vector_t;
+/*
+ * We forward declare the opaque list
+ * This is possible due to the fact 
+ * we only work with the pointer to the struct
+ * No direct access to Vector_t/Vector attributes possible
+ */
+typedef struct Vector Vector_t;
 
-Vector_t* NewVextor(void);
+Vector_t* NewVector(void);
 
 void vector_init(Vector_t* vec);
 void vector_clear(Vector_t* vec);

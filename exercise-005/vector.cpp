@@ -5,7 +5,14 @@
 
 #include <fmt/format.h>
 
-Vector_t* NewVextor(void) {
+typedef struct Vector {
+    unsigned int* data;
+    size_t size;
+    size_t capacity;
+} Vector_t;
+
+
+Vector_t* NewVector(void) {
     fmt::println("in \"{}\"",__func__);
     return NULL;
 }

@@ -5,6 +5,17 @@
 
 #include <fmt/format.h>
 
+typedef struct ListNode {
+    unsigned int data;
+    struct ListNode* pNext;
+} ListNode_t;
+
+typedef struct List {
+    ListNode_t* pHead;
+    ListNode_t* pTail;
+    unsigned int size;
+} List_t;
+
 ListNode_t* NewListNode(void) {
     fmt::println("in \"{}\"",__func__);
     return NULL;

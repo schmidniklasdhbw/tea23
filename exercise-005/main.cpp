@@ -34,7 +34,7 @@ auto main(int argc, char** argv) -> int
     ListNode_t* node2 =  GetNext(list, elem);
 
 
-    Vector_t* vec = NewVextor();
+    Vector_t* vec = NewVector();
     vector_init(vec);
     vector_clear(vec);
 
