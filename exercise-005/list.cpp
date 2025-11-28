@@ -30,7 +30,6 @@ void FreeListNode(ListNode_t* elem) {
     fmt::println("in \"{}\"",__func__);
     if(elem != NULL) {
         free(elem);
-        elem=NULL;
     }
 }
 
@@ -64,7 +63,6 @@ void FreeList(List_t* list) {
 
         // free the remaining part
         free(list);
-        list = NULL;
     }
 }
 
@@ -109,38 +107,42 @@ int InsertIntoLinkedListAfterNode(List_t* list, ListNode_t* node /* the node we 
 }
 int RemoveFromList(List_t* list, ListNode_t* elem) {
     fmt::println("in \"{}\"",__func__);
-    if (list != NULL && elem != NULL)
+    if (list == NULL || elem == NULL)
     {
-        // Walk through the list
-        ListNode_t* pNode = NULL;
-        pNode = elem->pNext;
-        if (elem == list->pHead)
-        {
-            list->pHead = pNode;
-            list->size -= 1;
-            if (list->pHead == list->pTail)
-            {
-                list->size = 0;
-            }
-        }
-        else
-        {
-            ListNode_t* pPrev = list->pHead;
-            do
-            {
-                if((pPrev != NULL) && (elem != NULL) && (pPrev->pNext == elem)) {
-                        // remove element from the linked list
-                        pPrev->pNext = elem->pNext;
-                        list->size -= 1;
-                        if(list->pTail == elem) {
-                            list->pTail = pPrev;
-                        }
-                }
-                pPrev = GetNext(list,pPrev);
-            } while (pPrev != NULL);
-        }
-        FreeListNode(elem);
+        return EXIT_FAILURE;
     }
+
+    // Walk through the list
+    ListNode_t* pNode = NULL;
+    pNode = elem->pNext;
+    if (elem == list->pHead)
+    {
+        list->pHead = pNode;
+        list->size -= 1;
+        // Update pTail if removing the last element
+        if (list->pHead == NULL)
+        {
+            list->pTail = NULL;
+            list->size = 0;
+        }
+    }
+    else
+    {
+        ListNode_t* pPrev = list->pHead;
+        do
+        {
+            if((pPrev != NULL) && (elem != NULL) && (pPrev->pNext == elem)) {
+                    // remove element from the linked list
+                    pPrev->pNext = elem->pNext;
+                    list->size -= 1;
+                    if(list->pTail == elem) {
+                        list->pTail = pPrev;
+                    }
+            }
+            pPrev = GetNext(list,pPrev);
+        } while (pPrev != NULL);
+    }
+    FreeListNode(elem);
     return EXIT_SUCCESS;
 }
 ListNode_t* GetNext(const List_t* list, ListNode_t* elem) {
