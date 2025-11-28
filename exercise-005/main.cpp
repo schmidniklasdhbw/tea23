@@ -16,23 +16,45 @@ auto main(int argc, char** argv) -> int
      */
     fmt::print("Hello, {} bss: {}, bss2: {}!\n", argv[0], bss, bss2);
 
-    ListNode_t* node = NewListNode();
-    ListNode_t* elem = NewListNode();
-    FreeListNode(node);
+    ListNode_t* dum_node = NewListNode(0);
+    ListNode_t* elem = NewListNode(0);
+    FreeListNode(dum_node);
 
+    List_t* dum_list =  NewList();
+    FreeList(dum_list);
+
+    /* restart */
     List_t* list =  NewList();
-    FreeList(list);
-
+    ListNode_t* node = NewListNode(0);
     int ret = EXIT_FAILURE;
     ret = InsertIntoLinkedList(list, node);
     fmt::println("Return value of: {}",ret);
 
     ret = InsertIntoLinkedListAfterNode(list, node, elem);
-    fmt::println("Return value of: {}",ret);
+    fmt::println("Return value of InsertIntoLinkedListAfterNode: {}",ret);
     ret = RemoveFromList(list, elem);
-    fmt::println("Return value of: {}",ret);
-    ListNode_t* node2 =  GetNext(list, elem);
+    fmt::println("Return value of RemoveFromList: {}",ret);
 
+    fmt::println("Fill the linked list...");
+
+    for(unsigned int i = 2; i< 12; i++) {
+        InsertIntoLinkedList(list,NewListNode(i));
+    }
+
+    fmt::println("Print the linked list...");
+    for (ListNode_t* n = GetNext(list, NULL); n != NULL; n = GetNext(list, n)) {
+        unsigned int data = 0;
+        if(EXIT_SUCCESS == GetData(n, &data)) {
+            fmt::println("The value: {} ", data);
+        } else {
+            fmt::print("INVALID Node");
+        }
+    }
+    fmt::println("Free the list...");
+    FreeList(list);
+
+
+    /* ---------------- VECTOR ---------------- */
 
     Vector_t* vec = NewVector();
     vector_init(vec);
