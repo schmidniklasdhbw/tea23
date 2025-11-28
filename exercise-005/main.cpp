@@ -69,8 +69,8 @@ auto main(int argc, char** argv) -> int
 
         vector_print(vec);
 
-        // TODO: Add vector_free() function to properly deallocate vector memory
-        // free(vec);  // Placeholder for future implementation
+        // Free vector and its internal memory
+        vector_free(vec);
     }
 
     return 0; /* exit gracefully*/

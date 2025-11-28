@@ -71,12 +71,19 @@ void vector_init(Vector_t* vec){
 void vector_clear(Vector_t* vec) {
     fmt::println("in \"{}\"",__func__);
     if(vec != NULL) {
-        if(vec->data != NULL) {
+        // Keep the allocated buffer and capacity to allow fast reuse.
+        // Only reset the logical size to zero so the vector appears empty.
+        vec->size = 0;
+    }
+}
+
+void vector_free(Vector_t* vec) {
+    fmt::println("in \"{}\"",__func__);
+    if (vec != NULL) {
+        if (vec->data != NULL) {
             free(vec->data);
             vec->data = NULL;
         }
-        vec->size = 0;
-        vec->capacity = 0;
         free(vec);
     }
 }

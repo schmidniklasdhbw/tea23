@@ -45,7 +45,28 @@ void vector_init(Vector_t* vec);
  * @brief Leert einen Vektor und gibt seinen Speicher frei
  * @param vec Der zu leerenden Vektor
  */
+/**
+ * @brief Leert den Vektor (setzt Größe auf 0), behält aber den internen Puffer
+ *
+ * Diese Funktion setzt lediglich die logische Größe des Vektors auf 0. Der
+ * bereits allozierte interne Puffer und die Kapazität bleiben erhalten, so
+ * dass nachfolgende Einfügungen ohne zusätzliche Reallokationen erfolgen
+ * können. Verwende `vector_free()` um den internen Puffer und die Struktur
+ * vollständig freizugeben.
+ *
+ * @param vec Der zu leerende Vektor (darf NULL sein)
+ */
 void vector_clear(Vector_t* vec);
+
+/**
+ * @brief Gibt den Vektor und seinen internen Speicher vollständig frei
+ *
+ * Nach Aufruf von `vector_free(vec)` ist `vec` nicht mehr gültig und darf
+ * nicht weiter verwendet werden.
+ *
+ * @param vec Der Vektor, der freigegeben werden soll
+ */
+void vector_free(Vector_t* vec);
 
 /**
  * @brief Fügt einen Wert am Ende des Vektors ein
