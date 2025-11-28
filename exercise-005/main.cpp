@@ -33,5 +33,18 @@ auto main(int argc, char** argv) -> int
     fmt::println("Return value of: {}",ret);
     ListNode_t* node2 =  GetNext(list, elem);
 
+
+    Vector_t* vec = NewVextor();
+    vector_init(vec);
+    vector_clear(vec);
+
+    unsigned int result = 0;
+    ret = vector_push_back(vec, 10);
+    fmt::println("Return value of vector_push_back: {}",ret);
+    ret =  vector_get(vec, 0, &result);
+    fmt::println("Return value of vector_get: {}",ret);
+
+    vector_print(vec);
+
     return 0; /* exit gracefully*/
 }
