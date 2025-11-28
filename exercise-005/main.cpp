@@ -69,6 +69,12 @@ auto main(int argc, char** argv) -> int
 
         vector_print(vec);
 
+        for(unsigned int i = 2; i< 12; i++) {
+            vector_push_back(vec, i);
+        }
+
+        vector_print(vec);
+
         // Free vector and its internal memory
         vector_free(vec);
     }

@@ -126,10 +126,10 @@ int vector_get(const Vector_t* vec, unsigned int index, unsigned int* outValue) 
 void vector_print(const Vector_t* vec) {
     fmt::println("in \"{}\"",__func__);
     if(vec != NULL) {
-        fmt::println("Vector size: {}, capacity: {}", vec->size, vec->capacity);
+        fmt::print("Vector size: {}, capacity: {} [", vec->size, vec->capacity);
         for(unsigned int i = 0; i < vec->size; i++) {
-            fmt::print("{} ", vec->data[i]);
+            fmt::print("{}, ", vec->data[i]);
         }
-        fmt::println("");
+        fmt::println("]");
     }
 }
