@@ -42,7 +42,7 @@ upstream        https://github.com/graugans/tea23.git (fetch)
 upstream        https://github.com/graugans/tea23.git (push)
 
 git fetch --all
-git switch -c solution-002 upstream/excercise-002 
+git switch -c solution-002 upstream/main
 git push -u origin solution-002 
 ```
 
@@ -79,13 +79,14 @@ Jede richtige Antwort bringt **1 Exorzismus-Punkt**.
 
 | Nr. | Frage | Antwortmöglichkeiten |
 |:--:|:-------|:---------------------|
-| 1 | Was passiert, wenn ein Pointer auf eine lokale Variable nach Funktionsende zeigt? | a) Es entsteht ein Zombie-Pointer 🧟<br>b) Alles gut<br>c) Der Heap lacht |
-| 2 | Warum darf `free()` nur auf dynamisch allozierten Speicher angewendet werden? | a) Sonst wird der Stack instabil<br>b) Undefined Behavior<br>c) Der Garbage Collector ruft „Buh!“ |
-| 3 | Warum ist Rekursion gefährlich ohne Abbruchbedingung? | a) Stack Overflow<br>b) Heap Overflow<br>c) Heapdämon ruft `malloc()` unendlich oft |
-| 4 | Wie nennt man Speicher, der nie wieder freigegeben wird? | a) Memory Leak 👻<br>b) Stack Frame<br>c) Lost Pointer |
+| 1 | Was passiert, wenn ein Pointer auf eine lokale Variable nach Funktionsende zeigt? | **a) Es entsteht ein Zombie-Pointer 🧟**<br>b) Alles gut<br>c) Der Heap lacht |
+| 2 | Warum darf `free()` nur auf dynamisch allozierten Speicher angewendet werden? | a) Sonst wird der Stack instabil<br>**b) Undefined Behavior**<br>c) Der Garbage Collector ruft „Buh!“ |
+| 3 | Warum ist Rekursion gefährlich ohne Abbruchbedingung? | **a) Stack Overflow**<br>b) Heap Overflow<br>c) Heapdämon ruft `malloc()` unendlich oft |
+| 4 | Wie nennt man Speicher, der nie wieder freigegeben wird? | **a) Memory Leak 👻**<br>b) Stack Frame<br>c) Lost Pointer |
 
 > 💬 **Diskussion:**  
 > Welche Fehler sind in echten Mikrocontrollersystemen besonders kritisch?
+--> Alle, da sie zu undefiniertem Verhalten führen können welches extrem aufwändig zu debuggen ist.
 
 ---
 
@@ -95,8 +96,11 @@ Analysieren Sie die folgenden Programme.
 Erklären Sie jeweils:
 
 1. Was passiert technisch?  
-2. Welcher „Fluch“ (Fehler) entsteht?  
+    - Es wird Speicher alloziert dieser aber nicht freigegeben, dadurch entsteht ein Speicherloch. 
+2. Welcher „Fluch“ (Fehler) entsteht?
+    - Memory Leak
 3. Wie kann man ihn bannen?
+    - durch die Verwendung von `std::free`
 
 ---
 
