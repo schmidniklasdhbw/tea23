@@ -8,4 +8,8 @@ constexpr auto PROJECT_VER_MINOR {"@PROJECT_VERSION_MINOR@"};
 constexpr auto PTOJECT_VER_PATCH {"@PROJECT_VERSION_PATCH@"};
 constexpr auto PROJECT_BUILD_DATE {"@BUILD_DATE@"};
 
+constexpr auto PROJECT_OUTPUT_PATH {"."};
+constexpr auto PROJECT_OUTPUT_FILE {"output.jpg"};
+
+
 #endif // CONFIG_H_IN
