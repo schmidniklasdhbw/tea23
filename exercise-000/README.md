@@ -1,5 +1,15 @@
 # Übungsaufgabe: Zeiger in C++ mit `fmt`
 
+Datum 10.10.2025
+
+Unterrichtsblöcke:
+
+- 08:00 - 9:30
+- 09:45 - 11:15
+- 11:30 - 12:15
+- 12:45 - 14:15
+- 14:30 - 15:15
+
 ## Notwendige git Kommandos
 
 ```sh
@@ -15,6 +25,14 @@ git commit -m "feat: add exercise number two"
 git push -u origin solution-000
 ....
 ```
+
+Hilfe zu den git Kommandos erhalten Sie zum Beispiel mit:
+
+```sh
+git add -h
+```
+
+Das liefert Ihnen die Hilfe und Optionen zum Kommando `git add`
 
 ## Programm kompilieren und ausführen
 
@@ -185,6 +203,12 @@ fmt::print("Name: {}, Alter: {}, Gehalt: {:.2f}\n", name, age, salary);
 # Python f-string (sehr ähnlich!)
 print(f"Name: {name}, Alter: {age}, Gehalt: {salary:.2f}")
 ```
+
+### Funktionen mit mehreren Argumenten
+
+Typischerweise haben Funktionen in C/C++ eine feste Anzahl an Parametern. Ihnen ist vielleicht aufgefallen, dass bei `printf` und auch dem ``fmt::print` durchaus mit einer Variablen Anzahl an Parametern gearbeitet wird. Dies wird mittels dem Konzept __Variadic functions__ umgesetzt.
+
+Siehe [cppreference.com](https://en.cppreference.com/w/c/variadic.html).
 
 ### Praktisches Beispiel für diese Übung
 
